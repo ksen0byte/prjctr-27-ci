@@ -1,6 +1,15 @@
 name: Scala CI
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Perform a release (true/false)'
+        required: true
+        default: 'false'
 
 jobs:
 
@@ -67,6 +76,7 @@ jobs:
         run: echo "Testing things in production"
 
   release:
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true' }}
       runs-on: ubuntu-latest
       needs: [post_deploy_production_test]
       environment: release_environment
