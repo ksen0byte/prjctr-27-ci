@@ -12,7 +12,7 @@ jobs:
       uses: olafurpg/setup-scala@v10
       with:
         java-version: 21
-    - name: Run tests
+    - name: Build Fat JAR
       run: sbt assembly
 
   unit_test:
@@ -24,7 +24,7 @@ jobs:
         with:
           java-version: 21
       - name: Run Unit Tests
-        run: sbt testOnly HelloTest
+        run: sbt "testOnly HelloTest"
 
   integration_test:
       runs-on: ubuntu-latest
@@ -36,4 +36,4 @@ jobs:
         with:
           java-version: 21
       - name: Run Integration Tests
-        run: sbt testOnly SimpleTestServerIntegrationTest
+        run: sbt "testOnly SimpleTestServerIntegrationTest"
