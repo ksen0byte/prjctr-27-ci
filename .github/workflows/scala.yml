@@ -23,11 +23,16 @@ jobs:
         java-version: 21
     - name: Build Fat JAR
       run: sbt assembly
+    - name: Upload JAR as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: scala-fat-jar
+        path: target/scala-3.3.1/prjct-27-ci-assembly-0.1.0-SNAPSHOT.jar
 
   unit_test:
       runs-on: ubuntu-latest
       steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Scala
         uses: olafurpg/setup-scala@v11
         with:
