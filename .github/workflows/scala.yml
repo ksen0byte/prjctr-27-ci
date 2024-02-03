@@ -37,3 +37,39 @@ jobs:
           java-version: 21
       - name: Run Integration Tests
         run: sbt "testOnly SimpleTestServerIntegrationTest"
+
+  deploy_staging:
+      runs-on: ubuntu-latest
+      needs: [integration_test]
+      steps:
+      - name: Deploy to staging
+        run: echo "Deploy to staging"
+
+  acceptance_test:
+      runs-on: ubuntu-latest
+      needs: [deploy_staging]
+      steps:
+      - name: Running acceptance tests
+        run: echo "Testing things in staging"
+
+  deploy_production:
+      runs-on: ubuntu-latest
+      needs: [acceptance_test]
+      steps:
+      - name: Deploy to production
+        run: echo "Deploying to production"
+
+  post_deploy_production_test:
+      runs-on: ubuntu-latest
+      needs: [deploy_production]
+      steps:
+      - name: Post deploy production test
+        run: echo "Testing things in production"
+
+  release:
+      runs-on: ubuntu-latest
+      needs: [post_deploy_production_test]
+      environment: release_environment
+      steps:
+      - name: Release to Production
+        run: echo "This is a mock release to production. Normally, deployment scripts would run here."
