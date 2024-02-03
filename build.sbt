@@ -5,6 +5,7 @@ ThisBuild / scalaVersion := "3.3.1"
 lazy val root = (project in file("."))
   .settings(
     name := "prjct-27-ci",
+    Compile / mainClass := Some("SimpleTestServer"),
     libraryDependencies ++= Seq(
       "org.http4s"    %% "http4s-blaze-server" % "0.23.14",
       "org.http4s"    %% "http4s-dsl"          % "0.23.14",
@@ -12,5 +13,5 @@ lazy val root = (project in file("."))
       "org.scalatest" %% "scalatest"           % "3.2.15"  % Test,
       "org.http4s"    %% "http4s-blaze-client" % "0.23.14" % Test,
       "org.typelevel" %% "munit-cats-effect-3" % "1.0.7"   % Test
-    )
+    ),
   )
